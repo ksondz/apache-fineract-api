@@ -33,4 +33,34 @@ describe('ErrorService tests', () => {
     expect(errorService.defaultServerErrorMessage).not.toEqual('Server error');
   });
 
+
+  // test('Test service parseError. Positive test', () => {
+  //   const errorService = new ErrorService();
+  //
+  //   let err = { statusCode: ErrorService.BAD_REQUEST_STATUS};
+  //   let res = errorService.parseError(err);
+  //   console.log('ressulttttttt', res);
+  //   expect(res.status).toEqual(err.status);
+  //   expect(res.message).toEqual(errorService.defaultServerErrorMessage);
+  //
+  //   err = { statusCode: ErrorService.BAD_REQUEST_STATUS, message: 'internal message'};
+  //   res = errorService.parseError(err);
+  //   expect(res.status).toEqual(err.status);
+  //   expect(res.message).toEqual(err.message);
+  // });
+  //
+  //
+  // test('Test service parseError. Negative test', () => {
+  //   const errorService = new ErrorService();
+  //
+  //   let err = { statusCode: ErrorService.BAD_REQUEST_STATUS};
+  //   let res = errorService.parseError(err);
+  //   expect(res.status).not.toEqual(err.status);
+  //   expect(res.message).not.toEqual(errorService.defaultServerErrorMessage);
+  //
+  //   err = { statusCode: ErrorService.BAD_REQUEST_STATUS, message: 'internal message'};
+  //   res = errorService.parseError(err);
+  //   expect(res.status).not.toEqual(err.status);
+  //   expect(res.message).not.toEqual(err.message);
+  // });
 });
