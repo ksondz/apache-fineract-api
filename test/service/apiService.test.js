@@ -111,18 +111,3 @@ describe('ApiService tests', () => {
     expect(apiService.getBasicAuthorizationHeader()).not.toEqual(notExpectedResult);
   });
 });
-
-
-// describe('ApiService get() method tests', () => {
-//
-//   test('Test service getOptions method', async () => {
-//     const options = { username: 'testUsername', password: 'testPassword' };
-//     const apiService = new ApiService(options);
-//
-//     const result = await apiService.get('/test');
-//     console.log(result);
-//
-//     expect(result).toEqual(result);
-//     // expect(apiService.getOptions('wrong url')).not.toEqual(expectedResult);
-//   });
-// });
