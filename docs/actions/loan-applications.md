@@ -198,7 +198,7 @@ apiWrapper.createLoanApplication(data)
 
 
 # Approve loan application
-    apiWrapper.approveLoanApplication(data);
+    apiWrapper.approveLoanApplication(localId, data);
 
 - Mandatory Fields
     approvedOnDate 
@@ -212,7 +212,7 @@ apiWrapper.createLoanApplication(data)
 const Wrapper = require('apache-fineract-api');
 const apiWrapper = new Wrapper();
 
-apiWrapper.approveLoanApplication({ approvedOnDate: '01 December 2016 00:00' })
+apiWrapper.approveLoanApplication(22, { approvedOnDate: '01 December 2016 00:00' })
   .then((result) => {
     console.log('Approved loan applications:', result);
   })
@@ -221,7 +221,7 @@ apiWrapper.approveLoanApplication({ approvedOnDate: '01 December 2016 00:00' })
 
 
 # Reject loan application
-    apiWrapper.rejectLoanApplication(data);
+    apiWrapper.rejectLoanApplication(localId, data);
 
 - Mandatory Fields
     rejectedOnDate 
@@ -231,7 +231,7 @@ apiWrapper.approveLoanApplication({ approvedOnDate: '01 December 2016 00:00' })
 const Wrapper = require('apache-fineract-api');
 const apiWrapper = new Wrapper();
 
-apiWrapper.rejectLoanApplication({ rejectedOnDate: '01 December 2016 00:00' })
+apiWrapper.rejectLoanApplication(22, { rejectedOnDate: '01 December 2016 00:00' })
   .then((result) => {
     console.log('Rejected loan applications:', result);
   })
@@ -240,7 +240,7 @@ apiWrapper.rejectLoanApplication({ rejectedOnDate: '01 December 2016 00:00' })
 
 
 # Withdraw loan application
-    apiWrapper.withdrawLoanApplication(data);
+    apiWrapper.withdrawLoanApplication(localId, data);
 
 - Mandatory Fields
     withdrawnOnDate 
@@ -250,7 +250,7 @@ apiWrapper.rejectLoanApplication({ rejectedOnDate: '01 December 2016 00:00' })
 const Wrapper = require('apache-fineract-api');
 const apiWrapper = new Wrapper();
 
-apiWrapper.withdrawLoanApplication({ withdrawnOnDate: '01 December 2016 00:00' })
+apiWrapper.withdrawLoanApplication(22, { withdrawnOnDate: '01 December 2016 00:00' })
   .then((result) => {
     console.log('Result:', result);
   })
