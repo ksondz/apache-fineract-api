@@ -1,5 +1,15 @@
 
+
 ## Clients
+
+- [Description](#Description)
+- [Create a new Client](#Create a new client)
+- [Retrieve client](#Retrieve client)
+- [Retrieve clients](#Retrieve clients)
+
+
+
+## Description
 
 Clients are people and businesses that have applied (or may apply) to an MFI for loans. <br/>
 Clients can be created in Pending or straight into Active state.
@@ -31,7 +41,7 @@ Clients can be created in Pending or straight into Active state.
     - datatables: <br/>
         Facility to enrich client details.
 
-# Create a new client 
+## Create a new client 
     apiWrapper.createClient(data);
 
 - Note:
