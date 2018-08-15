@@ -114,7 +114,7 @@ Much of the template definition can be overridden during loan creation.
 
 
 # Create a new loan application
-    apiWrapper.createLoanApplication(data);
+    fineractService.createLoanApplication(data);
 
 - Mandatory Fields: <br/>
     clientId, productId, principal, loanTermFrequency, loanTermFrequencyType, loanType, numberOfRepayments, repaymentEvery, repaymentFrequencyType, interestRatePerPeriod, amortizationType, interestType, interestCalculationPeriodType, transactionProcessingStrategyId, expectedDisbursementDate, submittedOnDate, loanType
@@ -134,8 +134,8 @@ Much of the template definition can be overridden during loan creation.
 
     
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
 const data = {
   dateFormat: 'dd MMMM yyyy',
@@ -189,7 +189,7 @@ const data = {
   ]
 }
 
-apiWrapper.createLoanApplication(data)
+fineractService.createLoanApplication(data)
   .then((loanApplication) => {
     console.log('New loan application:', loanApplication);
   })
@@ -198,7 +198,7 @@ apiWrapper.createLoanApplication(data)
 
 
 # Approve loan application
-    apiWrapper.approveLoanApplication(localId, data);
+    fineractService.approveLoanApplication(localId, data);
 
 - loanId: loan application id is Integer
 
@@ -211,10 +211,10 @@ apiWrapper.createLoanApplication(data)
 
 
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
-apiWrapper.approveLoanApplication(22, { approvedOnDate: '01 December 2016 00:00' })
+fineractService.approveLoanApplication(22, { approvedOnDate: '01 December 2016 00:00' })
   .then((result) => {
     console.log('Approved loan applications:', result);
   })
@@ -223,7 +223,7 @@ apiWrapper.approveLoanApplication(22, { approvedOnDate: '01 December 2016 00:00'
 
 
 # Reject loan application
-    apiWrapper.rejectLoanApplication(localId, data);
+    fineractService.rejectLoanApplication(localId, data);
 
 - loanId: <br/>
     loan application id is Integer
@@ -234,10 +234,10 @@ apiWrapper.approveLoanApplication(22, { approvedOnDate: '01 December 2016 00:00'
     
 
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
-apiWrapper.rejectLoanApplication(22, { rejectedOnDate: '01 December 2016 00:00' })
+fineractService.rejectLoanApplication(22, { rejectedOnDate: '01 December 2016 00:00' })
   .then((result) => {
     console.log('Rejected loan applications:', result);
   })
@@ -246,7 +246,7 @@ apiWrapper.rejectLoanApplication(22, { rejectedOnDate: '01 December 2016 00:00' 
 
 
 # Withdraw loan application
-    apiWrapper.withdrawLoanApplication(localId, data);
+    fineractService.withdrawLoanApplication(localId, data);
 
 - loanId: <br/>
     loan application id is Integer
@@ -257,10 +257,10 @@ apiWrapper.rejectLoanApplication(22, { rejectedOnDate: '01 December 2016 00:00' 
     
 
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
-apiWrapper.withdrawLoanApplication(22, { withdrawnOnDate: '01 December 2016 00:00' })
+fineractService.withdrawLoanApplication(22, { withdrawnOnDate: '01 December 2016 00:00' })
   .then((result) => {
     console.log('Result:', result);
   })
@@ -269,7 +269,7 @@ apiWrapper.withdrawLoanApplication(22, { withdrawnOnDate: '01 December 2016 00:0
 
 
 # Retrieve loan applications
-    apiWrapper.retrieveLoanApplications(options);
+    fineractService.retrieveLoanApplications(options);
 
 - options - OPTIONAL ARGUMENTS
     - offset: Integer optional, defaults to 0 <br/> 
@@ -293,10 +293,10 @@ apiWrapper.withdrawLoanApplication(22, { withdrawnOnDate: '01 December 2016 00:0
 
     
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
-apiWrapper.retrieveLoanApplications({ fields: 'name,description' })
+fineractService.retrieveLoanApplications({ fields: 'name,description' })
   .then((loanApplications) => {
     console.log('Loan applications list:', loanApplications);
   })
@@ -305,7 +305,7 @@ apiWrapper.retrieveLoanApplications({ fields: 'name,description' })
 
 
 # Retrieve loan application
-    apiWrapper.retrieveLoanApplication(loanId, options);
+    fineractService.retrieveLoanApplication(loanId, options);
 
 - loanId - loan application id is Integer
 
@@ -324,10 +324,10 @@ apiWrapper.retrieveLoanApplications({ fields: 'name,description' })
         'collateral': Loan collateral data.
     
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
-apiWrapper.retrieveLoanApplication({ fields: 'name,description' })
+fineractService.retrieveLoanApplication({ fields: 'name,description' })
   .then((loanApplication) => {
     console.log('Loan application:', loanApplication);
   })

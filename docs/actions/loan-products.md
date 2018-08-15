@@ -142,7 +142,7 @@ Much of the template definition can be overridden during loan creation.
 
 
 # Create a new loan product
-    apiWrapper.createLoanProject(data);
+    fineractService.createLoanProject(data);
 
 - Depending of the Accounting Rule (accountingRule) selected, additional fields with details of the appropriate Ledger Account identifiers would need to be passed in. <br/>
     Refer MifosX Accounting Specs Draft for more details regarding the significance of the selected accounting rule
@@ -182,8 +182,8 @@ Much of the template definition can be overridden during loan creation.
 
     
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
 const data = {
   currencyCode:'USD',
@@ -254,7 +254,7 @@ const data = {
   principalThresholdForLastInstallment:20
 };
 
-apiWrapper.createLoanProduct(data)
+fineractService.createLoanProduct(data)
   .then((loanProduct) => {
     console.log('New loan product:', loanProduct);
   })
@@ -263,23 +263,23 @@ apiWrapper.createLoanProduct(data)
 
 
 # Retrieve loan products
-    apiWrapper.retrieveLoanProducts(options);
+    fineractService.retrieveLoanProducts(options);
 
 - options - OPTIONAL ARGUMENTS
 
     
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
-apiWrapper.retrieveLoanProducts({ fields: 'name,description'})
+fineractService.retrieveLoanProducts({ fields: 'name,description'})
   .then((loanProducts) => {
     console.log('Loan products list:', loanProducts);
   })
 ```
 
 # Retrieve loan product
-    apiWrapper.retrieveLoanProduct(productId, options);
+    fineractService.retrieveLoanProduct(productId, options);
 
 - productId - product id is Integer
 
@@ -287,10 +287,10 @@ apiWrapper.retrieveLoanProducts({ fields: 'name,description'})
     - fields: String optional
     
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
-apiWrapper.retrieveLoanProduct({ fields: 'name,description' })
+fineractService.retrieveLoanProduct({ fields: 'name,description' })
   .then((loanProduct) => {
     console.log('Loan product:', loanProduct);
   })

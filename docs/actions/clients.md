@@ -42,7 +42,7 @@ Clients can be created in Pending or straight into Active state.
         Facility to enrich client details.
 
 ## Create a new client 
-    apiWrapper.createClient(data);
+    fineractService.createClient(data);
 
 - Note:
     - You can enter either: <br/>
@@ -69,8 +69,8 @@ Clients can be created in Pending or straight into Active state.
     - clientClassificationId
 
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
 const data = {
   officeId: 1,
@@ -109,14 +109,14 @@ const data = {
   }]
 };
 
-apiWrapper.createClient(data)
+fineractService.createClient(data)
   .then((client) => {
     console.log('New client:', client);
   })
 ```
 
 # Retrieve clients
-    apiWrapper.retrieveClients(options);
+    fineractService.retrieveClients(options);
     
 The list capability of clients can support pagination and sorting.
 
@@ -149,17 +149,17 @@ The list capability of clients can support pagination and sorting.
     
     
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
-apiWrapper.retrieveClients({ limit: 10})
+fineractService.retrieveClients({ limit: 10})
   .then((clients) => {
     console.log('Clients list:', clients);
   })
 ```
 
 # Retrieve client
-    apiWrapper.retrieveClient(clientId, options);
+    fineractService.retrieveClient(clientId, options);
 
 - clientId - client id is Integer
 
@@ -168,10 +168,10 @@ apiWrapper.retrieveClients({ limit: 10})
     - fields: String optional
     
 ```js
-const Wrapper = require('apache-fineract-api');
-const apiWrapper = new Wrapper();
+const FineractService = require('apache-fineract-api');
+const fineractService = new FineractService();
 
-apiWrapper.retrieveClient({ template: true })
+fineractService.retrieveClient({ template: true })
   .then((client) => {
     console.log('Client:', client);
   })

@@ -34,33 +34,206 @@ describe('ErrorService tests', () => {
   });
 
 
-  // test('Test service parseError. Positive test', () => {
-  //   const errorService = new ErrorService();
-  //
-  //   let err = { statusCode: ErrorService.BAD_REQUEST_STATUS};
-  //   let res = errorService.parseError(err);
-  //   console.log('ressulttttttt', res);
-  //   expect(res.status).toEqual(err.status);
-  //   expect(res.message).toEqual(errorService.defaultServerErrorMessage);
-  //
-  //   err = { statusCode: ErrorService.BAD_REQUEST_STATUS, message: 'internal message'};
-  //   res = errorService.parseError(err);
-  //   expect(res.status).toEqual(err.status);
-  //   expect(res.message).toEqual(err.message);
-  // });
-  //
-  //
-  // test('Test service parseError. Negative test', () => {
-  //   const errorService = new ErrorService();
-  //
-  //   let err = { statusCode: ErrorService.BAD_REQUEST_STATUS};
-  //   let res = errorService.parseError(err);
-  //   expect(res.status).not.toEqual(err.status);
-  //   expect(res.message).not.toEqual(errorService.defaultServerErrorMessage);
-  //
-  //   err = { statusCode: ErrorService.BAD_REQUEST_STATUS, message: 'internal message'};
-  //   res = errorService.parseError(err);
-  //   expect(res.status).not.toEqual(err.status);
-  //   expect(res.message).not.toEqual(err.message);
-  // });
+  test('Test service createError. Positive test', () => {
+    const errorService = new ErrorService();
+
+    const statusCode = ErrorService.BAD_REQUEST_STATUS;
+    const message = 'internal message';
+
+    let parsedError = errorService.createError(message, statusCode);
+
+    expect(parsedError.status).toEqual(statusCode);
+    expect(parsedError.message).toEqual(message);
+    expect(parsedError.details).toEqual(errorService.statusDetails[statusCode]);
+
+    parsedError = errorService.createError();
+
+    expect(parsedError.status).toEqual(ErrorService.SERVER_ERROR_STATUS);
+    expect(parsedError.message).toEqual('');
+    expect(parsedError.details).toEqual(errorService.statusDetails[ErrorService.SERVER_ERROR_STATUS]);
+  });
+
+
+  test('Test service createError. Negative test', () => {
+    const errorService = new ErrorService();
+
+    const statusCode = ErrorService.BAD_REQUEST_STATUS;
+    const message = 'internal message';
+
+    let parsedError = errorService.createError(message, statusCode);
+
+    expect(parsedError.status).not.toEqual(ErrorService.SERVER_ERROR_STATUS);
+    expect(parsedError.message).not.toEqual('');
+    expect(parsedError.details).not.toEqual(errorService.statusDetails[ErrorService.SERVER_ERROR_STATUS]);
+
+    parsedError = errorService.createError();
+
+    expect(parsedError.status).not.toEqual(statusCode);
+    expect(parsedError.message).not.toEqual(message);
+    expect(parsedError.details).not.toEqual(errorService.statusDetails[statusCode]);
+  });
+
+
+  test('Test service parseError. Positive test', () => {
+    const errorService = new ErrorService();
+
+    let err = { statusCode: ErrorService.BAD_REQUEST_STATUS };
+    let parsedError = errorService.parseError(err);
+    expect(parsedError.status).toEqual(err.statusCode);
+    expect(parsedError.message).toEqual(errorService.defaultServerErrorMessage);
+    expect(parsedError.details).toEqual(errorService.statusDetails[err.statusCode]);
+
+    err = { statusCode: ErrorService.BAD_REQUEST_STATUS, message: 'internal message' };
+    parsedError = errorService.parseError(err);
+    expect(parsedError.status).toEqual(err.statusCode);
+    expect(parsedError.message).toEqual(err.message);
+    expect(parsedError.details).toEqual(errorService.statusDetails[err.statusCode]);
+
+    err = {
+      statusCode: ErrorService.BAD_REQUEST_STATUS,
+      message: 'Validation',
+      error: {
+        defaultUserMessage: 'custom defaultUserMessage',
+        errors: [
+          {},
+        ],
+      },
+    };
+
+    parsedError = errorService.parseError(err);
+    expect(parsedError.status).toEqual(err.statusCode);
+    expect(parsedError.message).toEqual(err.error.defaultUserMessage);
+    expect(parsedError.details).toEqual(errorService.statusDetails[err.statusCode]);
+
+    err = {
+      statusCode: ErrorService.BAD_REQUEST_STATUS,
+      message: 'Validation',
+      error: {
+        developerMessage: 'custom developerMessage',
+        errors: [
+          {},
+        ],
+      },
+    };
+
+    parsedError = errorService.parseError(err);
+    expect(parsedError.status).toEqual(err.statusCode);
+    expect(parsedError.message).toEqual(err.error.developerMessage);
+    expect(parsedError.details).toEqual(errorService.statusDetails[err.statusCode]);
+
+    err = {
+      statusCode: ErrorService.BAD_REQUEST_STATUS,
+      message: 'Validation',
+      error: {
+        defaultUserMessage: 'Validation errors exist.',
+        errors: [
+          {},
+        ],
+      },
+    };
+
+    parsedError = errorService.parseError(err);
+    expect(parsedError.status).toEqual(err.statusCode);
+    expect(parsedError.message).toEqual(err.message);
+    expect(parsedError.details).toEqual(errorService.statusDetails[err.statusCode]);
+
+    err = {
+      statusCode: ErrorService.BAD_REQUEST_STATUS,
+      message: 'Validation',
+      error: {
+        defaultUserMessage: 'Validation ',
+        errors: [
+          {},
+          {},
+        ],
+      },
+    };
+
+    parsedError = errorService.parseError(err);
+    expect(parsedError.status).toEqual(err.statusCode);
+    expect(parsedError.message).toEqual(err.message);
+    expect(parsedError.details).toEqual(errorService.statusDetails[err.statusCode]);
+  });
+
+
+  test('Test service parseError. Negative test', () => {
+    const errorService = new ErrorService();
+
+    let err = { statusCode: ErrorService.BAD_REQUEST_STATUS };
+    let parsedError = errorService.parseError(err);
+    expect(parsedError.status).not.toEqual(ErrorService.AUTHENTICATION_STATUS);
+    expect(parsedError.message).not.toEqual('error message');
+    expect(parsedError.details).not.toEqual(errorService.statusDetails[ErrorService.AUTHENTICATION_STATUS]);
+
+    err = { statusCode: ErrorService.BAD_REQUEST_STATUS, message: 'internal message' };
+    parsedError = errorService.parseError(err);
+    expect(parsedError.status).not.toEqual(ErrorService.AUTHENTICATION_STATUS);
+    expect(parsedError.message).not.toEqual(errorService.defaultServerErrorMessage);
+    expect(parsedError.details).not.toEqual(errorService.statusDetails[ErrorService.AUTHENTICATION_STATUS]);
+
+    err = {
+      statusCode: ErrorService.BAD_REQUEST_STATUS,
+      message: 'Validation',
+      error: {
+        defaultUserMessage: 'custom defaultUserMessage',
+        errors: [
+          {},
+        ],
+      },
+    };
+
+    parsedError = errorService.parseError(err);
+    expect(parsedError.status).not.toEqual(ErrorService.AUTHENTICATION_STATUS);
+    expect(parsedError.message).not.toEqual(err.error.message);
+    expect(parsedError.details).not.toEqual(errorService.statusDetails[ErrorService.AUTHENTICATION_STATUS]);
+
+    err = {
+      statusCode: ErrorService.BAD_REQUEST_STATUS,
+      message: 'Validation',
+      error: {
+        developerMessage: 'custom developerMessage',
+        errors: [
+          {},
+        ],
+      },
+    };
+
+    parsedError = errorService.parseError(err);
+    expect(parsedError.status).not.toEqual(ErrorService.AUTHENTICATION_STATUS);
+    expect(parsedError.message).not.toEqual(err.error.message);
+    expect(parsedError.details).not.toEqual(errorService.statusDetails[ErrorService.AUTHENTICATION_STATUS]);
+
+    err = {
+      statusCode: ErrorService.BAD_REQUEST_STATUS,
+      message: 'Validation',
+      error: {
+        defaultUserMessage: 'Validation errors exist.',
+        errors: [
+          {},
+        ],
+      },
+    };
+
+    parsedError = errorService.parseError(err);
+    expect(parsedError.status).not.toEqual(ErrorService.AUTHENTICATION_STATUS);
+    expect(parsedError.message).not.toEqual(err.error.defaultUserMessage);
+    expect(parsedError.details).not.toEqual(errorService.statusDetails[ErrorService.AUTHENTICATION_STATUS]);
+
+    err = {
+      statusCode: ErrorService.BAD_REQUEST_STATUS,
+      message: 'Validation',
+      error: {
+        defaultUserMessage: 'Validation ',
+        errors: [
+          {},
+          {},
+        ],
+      },
+    };
+
+    parsedError = errorService.parseError(err);
+    expect(parsedError.status).not.toEqual(ErrorService.AUTHENTICATION_STATUS);
+    expect(parsedError.message).not.toEqual(err.error.defaultUserMessage);
+    expect(parsedError.details).not.toEqual(errorService.statusDetails[ErrorService.AUTHENTICATION_STATUS]);
+  });
 });

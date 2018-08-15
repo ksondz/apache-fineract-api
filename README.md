@@ -1,5 +1,5 @@
 ## Introduction
-This wrapper was made to support some actions of the open source [Apache Fineract API](https://demo.openmf.org/api-docs/apiLive.htm#top)<br/>
+This fineract service was made to support some actions of the open source [Apache Fineract API](https://demo.openmf.org/api-docs/apiLive.htm#top)<br/>
 
 ## Installation
 
