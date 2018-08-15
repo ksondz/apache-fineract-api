@@ -1,6 +1,17 @@
 
 ## Loan Applications
 
+- [Description](#description)
+- [Create a new loan application](#create-a-new-loan-application)
+- [Approve loan application](#approve-loan-application)
+- [Reject loan application](#reject-loan-application)
+- [Withdraw loan application](#withdraw-loan-application)
+- [Retrieve loan applications](#retrieve-loan-applications)
+- [Retrieve loan application](#retrieve-loan-application)
+
+
+## Description
+
 A Loan product is a template that is used when creating a loan. <br/>
 Much of the template definition can be overridden during loan creation.
 

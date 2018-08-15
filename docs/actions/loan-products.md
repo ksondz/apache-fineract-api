@@ -1,6 +1,14 @@
 
 ## Loan Products
 
+- [Description](#description)
+- [Create a new loan product](#create-a-new-loan-product)
+- [Retrieve loan products](#retrieve-loan-products)
+- [Retrieve loan product](#retrieve-loan-product)
+
+
+## Description
+
 A Loan product is a template that is used when creating a loan. <br/>
 Much of the template definition can be overridden during loan creation.
 

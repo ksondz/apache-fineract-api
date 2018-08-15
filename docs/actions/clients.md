@@ -4,8 +4,8 @@
 
 - [Description](#description)
 - [Create a new Client](#create-a-new-client)
-- [Retrieve client](#retrieve-client)
 - [Retrieve clients](#retrieve-clients)
+- [Retrieve client](#retrieve-client)
 
 
 
