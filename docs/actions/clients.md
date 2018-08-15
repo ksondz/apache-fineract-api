@@ -2,10 +2,10 @@
 
 ## Clients
 
-- [Description](#Description)
-- [Create a new Client](#Create a new client)
-- [Retrieve client](#Retrieve client)
-- [Retrieve clients](#Retrieve clients)
+- [Description](#description)
+- [Create a new Client](#create-a-new-client)
+- [Retrieve client](#retrieve-client)
+- [Retrieve clients](#retrieve-clients)
 
 
 
