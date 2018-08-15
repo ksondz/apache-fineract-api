@@ -6,23 +6,23 @@ const config = require('./../../lib/config');
 jest.mock('request-promise');
 
 
-describe('ApiService constructor(username, password) tests', () => {
+describe('ApiService tests', () => {
 
-  test('Test username and password.', () => {
-    const options = { username: 'testUsername', password: 'testPassword' };
-    const apiService = new ApiService(options);
 
-    expect(apiService.username).toBe(options.username);
-    expect(apiService.password).toBe(options.password);
-
-    expect(apiService.username).not.toBe('mifos');
-    expect(apiService.password).not.toBe('password');
+  test('Test service config. Positive test', () => {
+    const apiService = new ApiService(config.apacheFineract);
+    expect(apiService.config).toEqual(config.apacheFineract);
   });
 
 
-  test('Test service defined request headers', () => {
-    const options = { username: 'testUsername', password: 'testPassword' };
-    const apiService = new ApiService(options);
+  test('Test service config. Negative test', () => {
+    const apiService = new ApiService(config.apacheFineract);
+    expect(apiService.config).not.toEqual(config);
+  });
+
+
+  test('Test service request headers. Positive test', () => {
+    const apiService = new ApiService(config.apacheFineract);
 
     const expectedResult = {
       'Content-type': 'application/json',
@@ -31,6 +31,11 @@ describe('ApiService constructor(username, password) tests', () => {
     };
 
     expect(apiService.requestHeaders).toEqual(expectedResult);
+  });
+
+
+  test('Test service request headers. Negative test', () => {
+    const apiService = new ApiService(config.apacheFineract);
 
     const notExpectedResult = {
       'Content-type': 'application/pdf',
@@ -41,21 +46,8 @@ describe('ApiService constructor(username, password) tests', () => {
   });
 
 
-  test('Test service defined config', () => {
-    const options = { username: 'testUsername', password: 'testPassword' };
-    const apiService = new ApiService(options);
-
-    expect(apiService.config).toEqual(config.apacheFineract);
-    expect(apiService.config).not.toEqual(config);
-  });
-});
-
-
-describe('ApiService methods tests', () => {
-
-  test('Test service getOptions method', () => {
-    const options = { username: 'testUsername', password: 'testPassword' };
-    const apiService = new ApiService(options);
+  test('Test service getOptions method. Positive test', () => {
+    const apiService = new ApiService(config.apacheFineract);
 
     const expectedResult = {
       url: 'test url',
@@ -67,44 +59,70 @@ describe('ApiService methods tests', () => {
     };
 
     expect(apiService.getOptions(expectedResult.url)).toEqual(expectedResult);
-    expect(apiService.getOptions('wrong url')).not.toEqual(expectedResult);
   });
 
-  test('Test service generateUrl method', () => {
-    const options = { username: 'testUsername', password: 'testPassword' };
-    const apiService = new ApiService(options);
+
+  test('Test service getOptions method. Negative test', () => {
+    const apiService = new ApiService(config.apacheFineract);
+
+    const notExpectedResult = {
+      url: 'test url',
+      method: 'GET',
+      headers: apiService.requestHeaders,
+      body: {},
+      qs: {},
+      json: true,
+    };
+
+    expect(apiService.getOptions('wrong url')).not.toEqual(notExpectedResult);
+  });
+
+
+  test('Test service generateUrl method. Positive test', () => {
+    const apiService = new ApiService(config.apacheFineract);
     const route = '/test/route';
     const expectedUrl = `${config.apacheFineract.host}${config.apacheFineract.apiPath}${route}`;
 
     expect(apiService.generateUrl(route)).toEqual(expectedUrl);
-    expect(apiService.generateUrl('wrong route')).not.toEqual(expectedUrl);
   });
 
 
-  test('Test service getBasicAuthorizationHeader method', () => {
-    const options = { username: 'testUsername', password: 'testPassword' };
-    const apiService = new ApiService(options);
+  test('Test service generateUrl method. Negative test', () => {
+    const apiService = new ApiService(config.apacheFineract);
+    const route = '/test/route';
+    const notExpectedUrl = `wrong host${config.apacheFineract.apiPath}${route}`;
 
-    const buffer = Buffer.from(`${apiService.username}:${apiService.password}`);
-    const expectedResult = `Basic ${buffer.toString('base64')}`;
-    const notExpectedResult = `${buffer.toString('base64')}`;
+    expect(apiService.generateUrl(route)).not.toEqual(notExpectedUrl);
+  });
+
+
+  test('Test service getBasicAuthorizationHeader method. Positive test', () => {
+    const apiService = new ApiService(config.apacheFineract);
+    const expectedResult = `Basic ${Buffer.from(`${apiService.config.username}:${apiService.config.password}`).toString('base64')}`;
 
     expect(apiService.getBasicAuthorizationHeader()).toEqual(expectedResult);
+  });
+
+
+  test('Test service getBasicAuthorizationHeader method. Negative test', () => {
+    const apiService = new ApiService(config.apacheFineract);
+    const notExpectedResult = `Basic ${Buffer.from(`wrongUserName:${apiService.config.password}`).toString('base64')}`;
+
     expect(apiService.getBasicAuthorizationHeader()).not.toEqual(notExpectedResult);
   });
 });
 
 
-describe('ApiService get() method tests', () => {
-
-  test('Test service getOptions method', async () => {
-    const options = { username: 'testUsername', password: 'testPassword' };
-    const apiService = new ApiService(options);
-
-    const result = await apiService.get('/test');
-    console.log(result);
-
-    expect(result).toEqual(result);
-    // expect(apiService.getOptions('wrong url')).not.toEqual(expectedResult);
-  });
-});
+// describe('ApiService get() method tests', () => {
+//
+//   test('Test service getOptions method', async () => {
+//     const options = { username: 'testUsername', password: 'testPassword' };
+//     const apiService = new ApiService(options);
+//
+//     const result = await apiService.get('/test');
+//     console.log(result);
+//
+//     expect(result).toEqual(result);
+//     // expect(apiService.getOptions('wrong url')).not.toEqual(expectedResult);
+//   });
+// });
