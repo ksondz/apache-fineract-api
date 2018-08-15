@@ -200,12 +200,14 @@ apiWrapper.createLoanApplication(data)
 # Approve loan application
     apiWrapper.approveLoanApplication(localId, data);
 
-- Mandatory Fields
-    approvedOnDate 
-    
-- optionsOptional Fields
-    approvedLoanAmount
-    expectedDisbursementDate 
+- loanId: loan application id is Integer
+
+- data: 
+    - Mandatory Fields: <br/>
+        approvedOnDate
+    - optionsOptional: <br/>
+        approvedLoanAmount <br/>
+        expectedDisbursementDate 
 
 
 ```js
@@ -223,8 +225,12 @@ apiWrapper.approveLoanApplication(22, { approvedOnDate: '01 December 2016 00:00'
 # Reject loan application
     apiWrapper.rejectLoanApplication(localId, data);
 
-- Mandatory Fields
-    rejectedOnDate 
+- loanId: <br/>
+    loan application id is Integer
+
+- data: 
+    - Mandatory Fields: <br/>
+    rejectedOnDate  
     
 
 ```js
@@ -242,8 +248,12 @@ apiWrapper.rejectLoanApplication(22, { rejectedOnDate: '01 December 2016 00:00' 
 # Withdraw loan application
     apiWrapper.withdrawLoanApplication(localId, data);
 
-- Mandatory Fields
-    withdrawnOnDate 
+- loanId: <br/>
+    loan application id is Integer
+
+- data: 
+    - Mandatory Fields: <br/> 
+        withdrawnOnDate 
     
 
 ```js
