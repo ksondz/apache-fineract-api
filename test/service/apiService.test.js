@@ -9,10 +9,11 @@ jest.mock('request-promise');
 describe('ApiService constructor(username, password) tests', () => {
 
   test('Test username and password.', () => {
-    const apiService = new ApiService('test username', 'test password');
+    const options = { username: 'testUsername', password: 'testPassword' };
+    const apiService = new ApiService(options);
 
-    expect(apiService.username).toBe('test username');
-    expect(apiService.password).toBe('test password');
+    expect(apiService.username).toBe(options.username);
+    expect(apiService.password).toBe(options.password);
 
     expect(apiService.username).not.toBe('mifos');
     expect(apiService.password).not.toBe('password');
@@ -20,7 +21,8 @@ describe('ApiService constructor(username, password) tests', () => {
 
 
   test('Test service defined request headers', () => {
-    const apiService = new ApiService('test username', 'test password');
+    const options = { username: 'testUsername', password: 'testPassword' };
+    const apiService = new ApiService(options);
 
     const expectedResult = {
       'Content-type': 'application/json',
@@ -40,7 +42,8 @@ describe('ApiService constructor(username, password) tests', () => {
 
 
   test('Test service defined config', () => {
-    const apiService = new ApiService('test username', 'test password');
+    const options = { username: 'testUsername', password: 'testPassword' };
+    const apiService = new ApiService(options);
 
     expect(apiService.config).toEqual(config.apacheFineract);
     expect(apiService.config).not.toEqual(config);
@@ -51,7 +54,8 @@ describe('ApiService constructor(username, password) tests', () => {
 describe('ApiService methods tests', () => {
 
   test('Test service getOptions method', () => {
-    const apiService = new ApiService('test username', 'test password');
+    const options = { username: 'testUsername', password: 'testPassword' };
+    const apiService = new ApiService(options);
 
     const expectedResult = {
       url: 'test url',
@@ -67,7 +71,8 @@ describe('ApiService methods tests', () => {
   });
 
   test('Test service generateUrl method', () => {
-    const apiService = new ApiService('test username', 'test password');
+    const options = { username: 'testUsername', password: 'testPassword' };
+    const apiService = new ApiService(options);
     const route = '/test/route';
     const expectedUrl = `${config.apacheFineract.host}${config.apacheFineract.apiPath}${route}`;
 
@@ -77,7 +82,8 @@ describe('ApiService methods tests', () => {
 
 
   test('Test service getBasicAuthorizationHeader method', () => {
-    const apiService = new ApiService('test username', 'test password');
+    const options = { username: 'testUsername', password: 'testPassword' };
+    const apiService = new ApiService(options);
 
     const buffer = Buffer.from(`${apiService.username}:${apiService.password}`);
     const expectedResult = `Basic ${buffer.toString('base64')}`;
@@ -92,7 +98,8 @@ describe('ApiService methods tests', () => {
 describe('ApiService get() method tests', () => {
 
   test('Test service getOptions method', async () => {
-    const apiService = new ApiService('test username', 'test password');
+    const options = { username: 'testUsername', password: 'testPassword' };
+    const apiService = new ApiService(options);
 
     const result = await apiService.get('/test');
     console.log(result);
