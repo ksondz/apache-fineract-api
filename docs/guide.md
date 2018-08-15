@@ -1,7 +1,7 @@
 
 
 ## Guide
-This wrapper uses HTTP Basic Auth to authenticate in the open source [Apache Fineract API](https://demo.openmf.org/api-docs/apiLive.htm#top)<br/>
+THe wrapper uses HTTP Basic Auth to authenticate in the open source [Apache Fineract API](https://demo.openmf.org/api-docs/apiLive.htm#top)<br/>
 Default username is 'mifos' and password is 'password' <br/>
 
  - Create new instance. 
