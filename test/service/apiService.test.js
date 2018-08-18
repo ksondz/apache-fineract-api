@@ -27,7 +27,6 @@ describe('ApiService tests', () => {
     const expectedResult = {
       'Content-type': 'application/json',
       'Fineract-Platform-TenantId': 'default',
-      Authorization: apiService.getBasicAuthorizationHeader(),
     };
 
     expect(apiService.requestHeaders).toEqual(expectedResult);
@@ -39,7 +38,6 @@ describe('ApiService tests', () => {
 
     const notExpectedResult = {
       'Content-type': 'application/pdf',
-      Authorization: apiService.getBasicAuthorizationHeader(),
     };
 
     expect(apiService.requestHeaders).not.toEqual(notExpectedResult);
@@ -53,6 +51,7 @@ describe('ApiService tests', () => {
       url: 'test url',
       method: 'GET',
       headers: apiService.requestHeaders,
+      auth: apiService.getBasicAuth(),
       body: {},
       qs: {},
       json: true,
@@ -96,18 +95,25 @@ describe('ApiService tests', () => {
   });
 
 
-  test('Test service getBasicAuthorizationHeader method. Positive test', () => {
+  test('Test service getBasicAuth method. Positive test', () => {
     const apiService = new ApiService(config.apacheFineract);
-    const expectedResult = `Basic ${Buffer.from(`${apiService.config.username}:${apiService.config.password}`).toString('base64')}`;
+    const expectedResult = {
+      username: apiService.config.username,
+      password: apiService.config.password,
+    };
 
-    expect(apiService.getBasicAuthorizationHeader()).toEqual(expectedResult);
+    expect(apiService.getBasicAuth()).toEqual(expectedResult);
   });
 
 
-  test('Test service getBasicAuthorizationHeader method. Negative test', () => {
+  test('Test service getBasicAuth method. Negative test', () => {
     const apiService = new ApiService(config.apacheFineract);
-    const notExpectedResult = `Basic ${Buffer.from(`wrongUserName:${apiService.config.password}`).toString('base64')}`;
 
-    expect(apiService.getBasicAuthorizationHeader()).not.toEqual(notExpectedResult);
+    const notExpectedResult = {
+      username: 'wrong username',
+      password: apiService.config.password,
+    };
+
+    expect(apiService.getBasicAuth()).not.toEqual(notExpectedResult);
   });
 });
